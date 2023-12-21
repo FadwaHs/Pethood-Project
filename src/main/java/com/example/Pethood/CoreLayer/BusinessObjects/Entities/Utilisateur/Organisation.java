@@ -28,7 +28,7 @@ public class Organisation extends Utilisateur{
     private String OrganisationName ;
     private String SiteWeb ;
 
-
+    @JsonBackReference("organisation_adoption")
     @OneToMany(mappedBy = "organisation",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Adoption> adoptionList = new ArrayList<>();
 

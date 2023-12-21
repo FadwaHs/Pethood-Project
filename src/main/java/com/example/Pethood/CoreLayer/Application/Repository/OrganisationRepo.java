@@ -9,4 +9,6 @@ import java.util.Optional;
 
 public interface OrganisationRepo  extends JpaRepository<Organisation, Long> {
 
+    Organisation findByEmail(String email);
+
 }

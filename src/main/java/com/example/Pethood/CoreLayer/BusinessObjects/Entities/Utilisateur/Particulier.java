@@ -25,7 +25,7 @@ public class Particulier extends  Utilisateur {
     private String DateNaissance;
     private String Sexe;
 
-
+    @JsonBackReference("particulier_adoption")
     @OneToMany(mappedBy = "particulier",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Adoption> adoptionList = new ArrayList<>();
 

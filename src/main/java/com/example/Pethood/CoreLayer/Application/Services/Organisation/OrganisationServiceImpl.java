@@ -40,13 +40,7 @@ public class OrganisationServiceImpl implements  OrganisationService{
         String phoneNumber = (String) requestBody.get("phoneNumber");
 
         // Reuse the existing method to create Adresse
-        Adresse address = adresseService.addNewAdresse(
-                (String) requestBody.get("address"),
-                (String) requestBody.get("complementAddress"),
-                (String) requestBody.get("codePostal"),
-                (String) requestBody.get("city"),
-                (String) requestBody.get("country")
-        );
+        Adresse address = adresseService.addNewAdresse(requestBody);
 
         String nomStructure = (String) requestBody.get("nomStructure");
         String idOfficielStructure = (String) requestBody.get("idOfficielStructure");

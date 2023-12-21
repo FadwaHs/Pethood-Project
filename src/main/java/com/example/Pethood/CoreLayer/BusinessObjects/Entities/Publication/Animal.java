@@ -1,6 +1,5 @@
 package com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication;
 
-import com.example.Pethood.CoreLayer.BusinessObjects.ValueObjects.GalerieImages;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,19 +13,23 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Animal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String Name;
     private String Type;
     private String Sexe;
     private Double Age;
     private String Sante;
+    private  String Race;
     @ColumnDefault("false")
     private boolean isVaccinated;
     private String Lieu;
 
+    @JsonBackReference("publication_animal")
     @OneToMany(mappedBy = "animal",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Publication> publicationList = new ArrayList<>();
 

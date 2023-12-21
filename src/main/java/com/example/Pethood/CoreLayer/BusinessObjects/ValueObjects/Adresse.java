@@ -24,7 +24,7 @@ public class Adresse {
     private String city;
     private String country;
 
-
+    @JsonBackReference("utilisateur_address")
     @OneToOne(mappedBy = "address",cascade = CascadeType.REMOVE)
     private Utilisateur utilisateur;
 

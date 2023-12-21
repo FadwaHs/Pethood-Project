@@ -3,6 +3,7 @@ package com.example.Pethood.CoreLayer.BusinessObjects.Entities.Multimedia;
 import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Utilisateur.Organisation;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
 
@@ -11,7 +12,8 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Data
+@SuperBuilder
 public class Evenement extends MultimediaPublication {
 
     @Basic

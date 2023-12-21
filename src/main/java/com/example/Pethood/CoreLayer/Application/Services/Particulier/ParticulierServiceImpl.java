@@ -39,13 +39,7 @@ public class ParticulierServiceImpl  implements  ParticulierService{
         String dateNaissance = (String) requestBody.get("dateNaissance");
         String sexe = (String) requestBody.get("sexe");
 
-        Adresse address = adresseService.addNewAdresse(
-                (String) requestBody.get("address"),
-                (String) requestBody.get("complementAddress"),
-                (String) requestBody.get("codePostal"),
-                (String) requestBody.get("city"),
-                (String) requestBody.get("country")
-        );
+        Adresse address = adresseService.addNewAdresse(requestBody);
 
         Particulier particulier = Particulier.builder()
                 .email(email)

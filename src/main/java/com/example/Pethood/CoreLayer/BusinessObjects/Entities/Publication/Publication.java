@@ -1,17 +1,12 @@
 package com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication;
 
-import com.example.Pethood.CoreLayer.BusinessObjects.ValueObjects.GalerieImages;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -20,6 +15,8 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
+@SuperBuilder
 public abstract class Publication {
 
     @Id
@@ -36,12 +33,10 @@ public abstract class Publication {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date_publication;
 
+     private String URLImage;
+
+    @JsonManagedReference("publication_animal")
     @ManyToOne
     @JoinColumn(name = "animal_id")
     private Animal animal;
-
-
-    @OneToMany(mappedBy = "publication",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<GalerieImages> galerieImages = new ArrayList<>();
-
 }

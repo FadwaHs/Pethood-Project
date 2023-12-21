@@ -43,9 +43,10 @@ public abstract class Utilisateur {
     @NotBlank(message = "phoneNumber may not be blank")
     private String phoneNumber;
 
-    @ColumnDefault("false")
+    @ColumnDefault("true")
     private boolean isActivated;
 
+    @JsonManagedReference("utilisateur_address")
     @OneToOne
     @JoinColumn(name = "adresse_id")
     private Adresse address;

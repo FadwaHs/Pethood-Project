@@ -7,7 +7,9 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Map;
 
 
 @Service
@@ -18,7 +20,13 @@ public class AdresseServiceImpl implements  AdresseService{
     private AdresseRepo adresseRepo;
 
     @Override
-    public Adresse addNewAdresse(String address, String complementAddress, String codePostal, String city, String country) {
+    public Adresse addNewAdresse(@RequestBody Map<String, Object> requestBody) {
+
+        String address = (String) requestBody.get("address");
+        String complementAddress = (String) requestBody.get("complementAddress");
+        String codePostal = (String) requestBody.get("codePostal");
+        String city = (String) requestBody.get("city");
+        String country = (String) requestBody.get("country");
 
         Adresse adresse = Adresse.builder()
                 .address(address)

@@ -4,5 +4,6 @@ import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Utilisateur.Partic
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ParticulieRepo extends JpaRepository<Particulier, Long> {
+    Particulier findByEmail(String email);
 
 }

@@ -23,20 +23,8 @@ public class AddressController {
     @PostMapping("/create")
     public ResponseEntity<String> createAdresse(@RequestBody Map<String, Object> requestBody) {
 
-        String address = (String) requestBody.get("address");
-        String complementAddress = (String) requestBody.get("complementAddress");
-        String codePostal = (String) requestBody.get("codePostal");
-        String city = (String) requestBody.get("city");
-        String country = (String) requestBody.get("country");
 
-        Adresse adresse = addressService.addNewAdresse(
-                address,
-                complementAddress,
-                codePostal,
-                city,
-                country
-        );
-
+        Adresse adresse = addressService.addNewAdresse(requestBody);
         return ResponseEntity.ok("Adresse created successfully with ID: " + adresse.getId());
     }
 

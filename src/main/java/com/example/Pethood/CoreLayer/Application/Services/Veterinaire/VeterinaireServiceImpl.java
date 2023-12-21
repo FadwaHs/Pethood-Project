@@ -36,13 +36,7 @@ public class VeterinaireServiceImpl  implements VeterinaireService{
         String phoneNumber = (String) requestBody.get("phoneNumber");
 
         // Reuse the existing method to create Adresse
-        Adresse address = adresseService.addNewAdresse(
-                (String) requestBody.get("address"),
-                (String) requestBody.get("complementAddress"),
-                (String) requestBody.get("codePostal"),
-                (String) requestBody.get("city"),
-                (String) requestBody.get("country")
-        );
+        Adresse address = adresseService.addNewAdresse(requestBody);
 
         String specialite = (String) requestBody.get("specialite");
         String adresseCabinet = (String) requestBody.get("adresseCabinet");

@@ -2,10 +2,8 @@ package com.example.Pethood.CoreLayer.BusinessObjects.Entities.Multimedia;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
 
@@ -16,6 +14,8 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
+@SuperBuilder
 public abstract  class MultimediaPublication {
 
     @Id
