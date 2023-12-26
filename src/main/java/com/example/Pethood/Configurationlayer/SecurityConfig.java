@@ -38,12 +38,15 @@ public class SecurityConfig {
     private  String secretKey ;
     @Autowired
     private UserDetailServiceImpl userDetailServiceImpl;
+
+    // This method defines the PasswordEncoder bean used for encoding and decoding passwords with Bcrypt Algo
     @Bean
     public PasswordEncoder passwordEncoder()
     {
         return  new BCryptPasswordEncoder();
     }
 
+    // This method defines the SecurityFilterChain bean, which configures security settings for the application.
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
@@ -60,12 +63,14 @@ public class SecurityConfig {
                 .build();
     }
 
+    // This method defines the JwtEncoder bean, which encodes JWT tokens
     @Bean
     JwtEncoder jwtEncoder()
     {
         return new NimbusJwtEncoder(new ImmutableSecret<>(secretKey.getBytes()));
     }
 
+    // This method defines the JwtDecoder bean, which decodes JWT tokens
     @Bean
     JwtDecoder jwtDecoder()
     {
@@ -73,7 +78,7 @@ public class SecurityConfig {
         return NimbusJwtDecoder.withSecretKey(secretKeySpec).macAlgorithm(MacAlgorithm.HS512).build();
     }
 
-
+    // This method defines the AuthenticationManager bean, which manages authentication for the application.
     @Bean
     public AuthenticationManager authenticationManager(UserDetailsService userDetailsService)
     {
@@ -84,6 +89,7 @@ public class SecurityConfig {
         return  new ProviderManager(daoAuthenticationProvider);
     }
 
+    // This method defines the CorsConfigurationSource bean, which configures CORS settings for the application.
     @Bean
     CorsConfigurationSource corsConfigurationSource()
     {

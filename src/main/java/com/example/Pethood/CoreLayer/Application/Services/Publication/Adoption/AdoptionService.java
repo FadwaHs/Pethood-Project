@@ -11,5 +11,5 @@ public interface AdoptionService {
     public Adoption createAdoption(@RequestBody Map<String, Object> requestBody);
     public Adoption getAdoptionById(Long id);
 
-    public List<Adoption> getAllAdoption();
+    public List<Adoption> getAllAdoptionNotAdopted();
 }

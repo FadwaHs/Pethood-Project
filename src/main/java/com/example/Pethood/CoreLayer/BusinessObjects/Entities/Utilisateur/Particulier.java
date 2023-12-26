@@ -29,7 +29,7 @@ public class Particulier extends  Utilisateur {
     @OneToMany(mappedBy = "particulier",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Adoption> adoptionList = new ArrayList<>();
 
-
+    @JsonBackReference("particulier_demandeAdoptions")
     @OneToMany(mappedBy = "particulier",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<DemandeAdoption> demandeAdoptions = new ArrayList<>();
 

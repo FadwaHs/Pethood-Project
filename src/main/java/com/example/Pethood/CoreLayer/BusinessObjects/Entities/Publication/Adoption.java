@@ -5,6 +5,7 @@ import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Utilisateur.Organi
 import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Utilisateur.Particulier;
 import com.example.Pethood.CoreLayer.BusinessObjects.Enum.AdoptionStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -21,7 +22,6 @@ import java.util.List;
 @NoArgsConstructor
 @SuperBuilder
 public class Adoption extends  Publication{
-
 
     private String Infos;
     private Double Frais_Adoption;
@@ -42,6 +42,7 @@ public class Adoption extends  Publication{
     private Organisation organisation;
 
 
+    @JsonManagedReference("adoption_demandeAdoptions")
     @OneToMany(mappedBy = "adoption",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<DemandeAdoption> demandeAdoptions = new ArrayList<>();
 

@@ -40,7 +40,7 @@ public class SecurityController {
 
 
     @PostMapping("/login")
-    // this  end point :---Authentifier user ---génerate token ---
+    // this  end point :---Authentifier user ---génerate token ---access Token --And Refrech Token
     public Map<String, String> login(String email, String password)
     {
         Authentication authentication  = authenticationManager.authenticate(

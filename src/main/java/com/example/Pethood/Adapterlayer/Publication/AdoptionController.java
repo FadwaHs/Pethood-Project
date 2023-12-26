@@ -32,8 +32,8 @@ public class AdoptionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Adoption>> getAllAdoption(){
-        return new ResponseEntity<>(adoptionService.getAllAdoption(), HttpStatus.OK);
+    public ResponseEntity<List<Adoption>> getAllAdoptionNotAdopted(){
+        return new ResponseEntity<>(adoptionService.getAllAdoptionNotAdopted(), HttpStatus.OK);
     }
 
 }
