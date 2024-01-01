@@ -39,7 +39,7 @@ public class EvenementServiceImpl implements  EvenementService{
         Date dateEvent = null;
 
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
             dateEvent = dateFormat.parse(dateEventStr);
         } catch (ParseException e) {
             e.printStackTrace();

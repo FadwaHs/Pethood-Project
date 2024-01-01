@@ -1,8 +1,6 @@
 package com.example.Pethood.Adapterlayer.Publication;
 
-
 import com.example.Pethood.CoreLayer.Application.Services.Publication.AlertSoin.AlertSoinService;
-import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.Adoption;
 import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.AlerteSoin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

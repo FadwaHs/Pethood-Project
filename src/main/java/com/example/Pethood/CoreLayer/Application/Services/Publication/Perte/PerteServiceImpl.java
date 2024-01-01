@@ -1,13 +1,13 @@
-package com.example.Pethood.CoreLayer.Application.Services.Publication.AlertSoin;
+package com.example.Pethood.CoreLayer.Application.Services.Publication.Perte;
 
-import com.example.Pethood.CoreLayer.Application.Repository.AlerteSoinRepository;
 import com.example.Pethood.CoreLayer.Application.Repository.ParticulieRepo;
+import com.example.Pethood.CoreLayer.Application.Repository.PerteRepository;
 import com.example.Pethood.CoreLayer.Application.Services.Authentifier.UserDetailServiceImpl;
 import com.example.Pethood.CoreLayer.Application.Services.Publication.Animal.AnimalService;
-import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.AlerteSoin;
 import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.Animal;
+import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.Perte;
 import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Utilisateur.Particulier;
-import com.example.Pethood.CoreLayer.BusinessObjects.Enum.AlerteSoinStatus;
+import com.example.Pethood.CoreLayer.BusinessObjects.Enum.PerteStatus;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -15,23 +15,26 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+
 @Service
 @Transactional
 @AllArgsConstructor
-public class AlertSoinServiceImpl  implements  AlertSoinService{
+public class PerteServiceImpl  implements  PerteService{
 
-    private ParticulieRepo particulierRepo;
+    private PerteRepository perteRepository;
     private AnimalService animalService;
-    private AlerteSoinRepository alerteSoinRepository;
+    private ParticulieRepo particulierRepo;
     private UserDetailServiceImpl userDetailServiceImpl;
 
     @Override
-    public AlerteSoin createAlertSoin(Map<String, Object> requestBody) {
+    public Perte createPerte(Map<String, Object> requestBody) {
 
         Animal animal = animalService.createAnimal(requestBody);
 
@@ -39,28 +42,40 @@ public class AlertSoinServiceImpl  implements  AlertSoinService{
         String description = (String) requestBody.get("Description");
         String uRLImage = (String) requestBody.get("uRLImage");
 
-        String descriptionMaladie = (String) requestBody.get("descriptionMaladie");
-        Double CoûtTraitement = (Double) requestBody.get("CoûtTraitement");
+        String DateDisparition = (String) requestBody.get("DateDisparition");
+        String LieuDisparition = (String) requestBody.get("lieuDisparition");
+        String ProprietaireAnimal = (String) requestBody.get("proprietaireAnimal");
+        String ContactSOS = (String) requestBody.get("ContactSOS");
+
+        Date DateDispa = null;
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+            DateDispa = dateFormat.parse(DateDisparition);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         String particulier_user = (String) requestBody.get("email");
         Particulier particulier = particulierRepo.findByEmail(particulier_user);
 
-        AlerteSoin alerteSoin = AlerteSoin.builder()
+        Perte perte = Perte.builder()
                 .Titre(titre)
                 .Description(description)
                 .URLImage(uRLImage)
-                .DescriptionMaladie(descriptionMaladie)
-                .CoûtTraitement(CoûtTraitement)
+                .DateDisparition(DateDispa)
+                .LieuDisparition(LieuDisparition)
+                .ProprietaireAnimal(ProprietaireAnimal)
+                .ContactSOS(ContactSOS)
                 .particulier(particulier)
-                .date_publication(new Date())
                 .animal(animal)
+                .date_publication(new Date())
                 .build();
 
-           return alerteSoinRepository.save(alerteSoin);
+        return perteRepository.save(perte);
     }
 
     @Override
-    public List<AlerteSoin> getAllAlertSoinNotResolved() {
+    public List<Perte> getAllPerteNotClosed() {
 
         // Retrieve authentication details from the SecurityContextHolder
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -81,26 +96,40 @@ public class AlertSoinServiceImpl  implements  AlertSoinService{
         else
         { userId = null; }
 
-        List<AlerteSoin> allalertsoin = alerteSoinRepository.findAll();
+        List<Perte> allperteList = perteRepository.findAll();
 
-        // Use Java Stream API to filter and collect alertSoin  posts
-        // Filter: Include only alertSoin with a status different from "CAS_RESOLU"
-        // Filter: Exclude alertSoin posted by the current partuculier user based on role and ID
-        return allalertsoin.stream()
-                .filter(alertsoin -> !alertsoin.getStatus().equals(AlerteSoinStatus.CAS_RESOLU))
-                .filter(alertsoin -> !isPostedByCurrentPart(alertsoin,role, userId))
+        // Filter: Include only perte with a status different from "CLOTURE"
+        // Filter: Exclude perte posted by the current partuculier user based on role and ID
+        return allperteList.stream()
+                .filter(perte -> !perte.getStatus().equals(PerteStatus.CLOTURE))
+                .filter(perte -> !isPostedByCurrentPart(perte,role, userId))
                 .collect(Collectors.toList());
+
     }
 
 
-    // Helper method to check if the alertSoin post is posted by the current user 'Particulier'
-    private boolean isPostedByCurrentPart(AlerteSoin alerteSoin, String role, Long userId) {
-         if ("Particulier".equals(role)) {
-            return alerteSoin.getParticulier() != null && alerteSoin.getParticulier().getId().equals(userId);
+    // Helper method to check if the perte post is posted by the current user 'Particulier'
+    private boolean isPostedByCurrentPart(Perte perte, String role, Long userId) {
+        if ("Particulier".equals(role)) {
+            return perte.getParticulier() != null && perte.getParticulier().getId().equals(userId);
         } else {
             return false;
         }
     }
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
