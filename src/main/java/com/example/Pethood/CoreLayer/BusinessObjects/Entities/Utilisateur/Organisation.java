@@ -32,11 +32,9 @@ public class Organisation extends Utilisateur{
     @OneToMany(mappedBy = "organisation",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Adoption> adoptionList = new ArrayList<>();
 
-
+    @JsonBackReference("organisation_Evenement")
     @OneToMany(mappedBy = "organisation",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Evenement> evenementList = new ArrayList<>();
-
-
 
 
 

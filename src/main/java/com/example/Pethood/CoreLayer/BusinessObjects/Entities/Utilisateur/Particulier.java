@@ -1,5 +1,6 @@
 package com.example.Pethood.CoreLayer.BusinessObjects.Entities.Utilisateur;
 import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.Adoption;
+import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.AlerteSoin;
 import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.DemandeAdoption;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.CascadeType;
@@ -32,6 +33,10 @@ public class Particulier extends  Utilisateur {
     @JsonBackReference("particulier_demandeAdoptions")
     @OneToMany(mappedBy = "particulier",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<DemandeAdoption> demandeAdoptions = new ArrayList<>();
+
+    @JsonBackReference("particulier_AlerteSoin")
+    @OneToMany(mappedBy = "particulier",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<AlerteSoin> alerteSoinList = new ArrayList<>();
 
 
 

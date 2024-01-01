@@ -1,6 +1,7 @@
 package com.example.Pethood.CoreLayer.BusinessObjects.Entities.Multimedia;
 
 import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Utilisateur.Organisation;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -27,11 +28,9 @@ public class Evenement extends MultimediaPublication {
 
     private  String Intervenants;
 
+    @JsonManagedReference("organisation_Evenement")
     @ManyToOne
     @JoinColumn(name = "organisation_id")
     private Organisation organisation;
-
-
-
 
 }
