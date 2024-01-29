@@ -4,15 +4,14 @@ import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.Alerte
 import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.DemandeAdoption;
 import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.Perte;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -42,6 +41,44 @@ public class Particulier extends  Utilisateur {
     @JsonBackReference("particulier_perte")
     @OneToMany(mappedBy = "particulier",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Perte> perteList = new ArrayList<>();
+
+
+    @PostLoad
+    public void initializeCollections() {
+
+        if (this.alerteSoinList == null) {
+            this.alerteSoinList = new ArrayList<>();
+        } else {
+            // remove duplicates
+            Set<AlerteSoin> uniqueAlerteSoin = new HashSet<>(this.alerteSoinList);
+            this.alerteSoinList.clear();
+            this.alerteSoinList.addAll(uniqueAlerteSoin);
+        }
+
+        /////////////////////////////////////////////////
+
+        if (this.perteList == null) {
+            this.perteList = new ArrayList<>();
+        } else {
+            // remove duplicates
+            Set<Perte> uniqueperte = new HashSet<>(this.perteList);
+            this.perteList.clear();
+            this.perteList.addAll(uniqueperte);
+        }
+
+        //////////////////////////////////////////////
+
+        if (this.adoptionList == null) {
+            this.adoptionList = new ArrayList<>();
+        } else {
+            // remove duplicates
+            Set<Adoption> uniqueAdoption = new HashSet<>(this.adoptionList);
+            this.adoptionList.clear();
+            this.adoptionList.addAll(uniqueAdoption);
+        }
+    }
+
+
 
 
 

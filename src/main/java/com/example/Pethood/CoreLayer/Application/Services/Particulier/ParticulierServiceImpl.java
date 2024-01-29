@@ -3,6 +3,9 @@ package com.example.Pethood.CoreLayer.Application.Services.Particulier;
 import com.example.Pethood.CoreLayer.Application.Repository.ParticulieRepo;
 import com.example.Pethood.CoreLayer.Application.Repository.RoleRepository;
 import com.example.Pethood.CoreLayer.Application.Services.Adresse.AdresseService;
+import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.Adoption;
+import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.AlerteSoin;
+import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.Perte;
 import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Utilisateur.Organisation;
 import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Utilisateur.Particulier;
 import com.example.Pethood.CoreLayer.BusinessObjects.ValueObjects.Adresse;
@@ -12,9 +15,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Service
@@ -62,4 +63,48 @@ public class ParticulierServiceImpl  implements  ParticulierService{
 
         return particulieRepo.save(particulier);
     }
+
+    @Override
+    public List<AlerteSoin> getAlerteSoinForPar(Long id) {
+
+        Optional<Particulier> particulierOptional = particulieRepo.findById(id);
+
+        if (particulierOptional.isPresent()  ){
+
+            Particulier particulier = particulierOptional.get();
+            particulier.initializeCollections();
+            return particulier.getAlerteSoinList();
+        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<Perte> getPerteForPar(Long id) {
+
+        Optional<Particulier> particulierOptional = particulieRepo.findById(id);
+
+        if (particulierOptional.isPresent()  ){
+
+            Particulier particulier = particulierOptional.get();
+            particulier.initializeCollections();
+            return particulier.getPerteList();
+        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<Adoption> getAdoptionForPar(Long id) {
+
+        Optional<Particulier> particulierOptional = particulieRepo.findById(id);
+
+        if (particulierOptional.isPresent()  ){
+
+            Particulier particulier = particulierOptional.get();
+            particulier.initializeCollections();
+            return particulier.getAdoptionList();
+        }
+        return Collections.emptyList();
+    }
+
+
 }
