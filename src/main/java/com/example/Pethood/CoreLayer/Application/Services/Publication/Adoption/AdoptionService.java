@@ -12,4 +12,8 @@ public interface AdoptionService {
     public Adoption getAdoptionById(Long id);
 
     public List<Adoption> getAllAdoptionNotAdopted();
+
+    public List<Adoption> findByDataContainingAnimal(String searchData);
+
+
 }

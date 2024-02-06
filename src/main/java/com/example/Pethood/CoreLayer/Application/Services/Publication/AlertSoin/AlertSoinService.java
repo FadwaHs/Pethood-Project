@@ -13,5 +13,7 @@ public interface AlertSoinService {
 
     List<AlerteSoin> getAllAlertSoinNotResolved();
 
+     List<AlerteSoin> findByDataContainingAnimal(String searchData);
+
 
 }

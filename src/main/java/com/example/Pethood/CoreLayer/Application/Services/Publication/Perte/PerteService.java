@@ -8,4 +8,6 @@ import java.util.Map;
 public interface PerteService {
     Perte createPerte(@RequestBody Map<String, Object> requestBody);
     List<Perte> getAllPerteNotClosed();
+
+    List<Perte> findByDataContainingAnimal(String searchData);
 }

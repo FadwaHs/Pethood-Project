@@ -1,6 +1,7 @@
 package com.example.Pethood.Adapterlayer.Publication;
 
 import com.example.Pethood.CoreLayer.Application.Services.Publication.AlertSoin.AlertSoinService;
+import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.Adoption;
 import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.AlerteSoin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,5 +28,12 @@ public class AlertSoinController {
     @GetMapping
     public ResponseEntity<List<AlerteSoin>> getAllAlertSoinNotResolved(){
         return new ResponseEntity<>(alertSoinService.getAllAlertSoinNotResolved(), HttpStatus.OK);
+    }
+
+
+    // Recherche Part /////////////////////////////
+    @GetMapping("/searchByAnimal")
+    public ResponseEntity<List<AlerteSoin>> searchByAnimalAttributes(@RequestParam String searchData) {
+        return new ResponseEntity<>(alertSoinService.findByDataContainingAnimal(searchData), HttpStatus.OK);
     }
 }

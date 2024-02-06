@@ -4,6 +4,7 @@ import com.example.Pethood.CoreLayer.Application.Repository.ParticulieRepo;
 import com.example.Pethood.CoreLayer.Application.Repository.PerteRepository;
 import com.example.Pethood.CoreLayer.Application.Services.Authentifier.UserDetailServiceImpl;
 import com.example.Pethood.CoreLayer.Application.Services.Publication.Animal.AnimalService;
+import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.AlerteSoin;
 import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.Animal;
 import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.Perte;
 import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Utilisateur.Particulier;
@@ -115,6 +116,14 @@ public class PerteServiceImpl  implements  PerteService{
         } else {
             return false;
         }
+    }
+
+
+    // Recherche ////////////////////////////////////////////////////////////
+    @Override
+    public List<Perte> findByDataContainingAnimal(String searchData) {
+
+        return perteRepository.findByDataContaining(searchData);
     }
 }
 

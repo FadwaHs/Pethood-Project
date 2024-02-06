@@ -130,4 +130,24 @@ public class AdoptionServiceImpl implements AdoptionService {
 
 
 
+    // Recherche ////////////////////////////////////////////////////////////
+    @Override
+    public List<Adoption> findByDataContainingAnimal(String searchData) {
+
+        return adoptionRepository.findByDataContaining(searchData);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -4,6 +4,7 @@ import com.example.Pethood.CoreLayer.Application.Repository.AlerteSoinRepository
 import com.example.Pethood.CoreLayer.Application.Repository.ParticulieRepo;
 import com.example.Pethood.CoreLayer.Application.Services.Authentifier.UserDetailServiceImpl;
 import com.example.Pethood.CoreLayer.Application.Services.Publication.Animal.AnimalService;
+import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.Adoption;
 import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.AlerteSoin;
 import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.Animal;
 import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Utilisateur.Particulier;
@@ -100,6 +101,15 @@ public class AlertSoinServiceImpl  implements  AlertSoinService{
         } else {
             return false;
         }
+    }
+
+
+
+    // Recherche ////////////////////////////////////////////////////////////
+    @Override
+    public List<AlerteSoin> findByDataContainingAnimal(String searchData) {
+
+        return alerteSoinRepository.findByDataContaining(searchData);
     }
 
 

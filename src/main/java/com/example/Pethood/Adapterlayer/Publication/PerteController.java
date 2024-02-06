@@ -1,5 +1,6 @@
 package com.example.Pethood.Adapterlayer.Publication;
 import com.example.Pethood.CoreLayer.Application.Services.Publication.Perte.PerteService;
+import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.AlerteSoin;
 import com.example.Pethood.CoreLayer.BusinessObjects.Entities.Publication.Perte;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,5 +26,11 @@ public class PerteController {
     @GetMapping
     public ResponseEntity<List<Perte>> getAllPerteNotClosed(){
         return new ResponseEntity<>(perteService.getAllPerteNotClosed(), HttpStatus.OK);
+    }
+
+    // Recherche Part /////////////////////////////
+    @GetMapping("/searchByAnimal")
+    public ResponseEntity<List<Perte>> searchByAnimalAttributes(@RequestParam String searchData) {
+        return new ResponseEntity<>(perteService.findByDataContainingAnimal(searchData), HttpStatus.OK);
     }
 }

@@ -36,4 +36,12 @@ public class AdoptionController {
         return new ResponseEntity<>(adoptionService.getAllAdoptionNotAdopted(), HttpStatus.OK);
     }
 
+
+    // Recherche Part /////////////////////////////
+    @GetMapping("/searchByAnimal")
+    public ResponseEntity<List<Adoption>> searchByAnimalAttributes(@RequestParam String searchData) {
+        return new ResponseEntity<>(adoptionService.findByDataContainingAnimal(searchData), HttpStatus.OK);
+
+    }
+
 }
